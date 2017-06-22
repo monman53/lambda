@@ -1,0 +1,69 @@
+def K       = (\(\2));
+def S       = (\(\(\((3 1)(2 1)))));
+def I       = (\ 1);
+def Y       = (\((\(2(1 1)))(\(2(1 1)))));
+
+def SUCC    = (\(\(\(2 ((3 2) 1)))));
+def PLUS    = (\(\((2 SUCC) 1)));
+def MULT    = (\(\(\(3 (2 1)))));
+def POW     = (\(\(1 2)));
+def PRED    = (\(\(\(((3 (\(\(1 (2 4))))) (\ 2)) (\ 1)))));
+def SUB     = (\(\((1 PRED) 2)));
+
+def TRUE    = (\(\2));
+def FALSE   = (\(\1));
+def AND     = (\(\((2 1) 2)));
+def OR      = (\(\((2 2) 1)));
+def NOT     = (\((1 FALSE) TRUE));
+def XOR     = (\(\((2 (NOT 1)) 1)));
+def IFTHENELSE  = (\(\(\((3 2) 1))));
+
+def ISZERO  = (\((1 (\ FALSE)) TRUE));
+def LEQ     = (\(\(ISZERO ((SUB 2) 1))));
+def LT      = (\(\(NOT ((LEQ 1) 2))));
+def EQ      = (\(\((AND ((LEQ 1) 2))((LEQ 2) 1))));
+
+def PAIR    = (\(\(\((1 3)2))));
+def FIRST   = (\(1 TRUE));
+def CAR     = FIRST;
+def SECOND  = (\(1 FALSE));
+def CDR     = SECOND;
+def NIL     = (\ TRUE);
+def NULL    = (\(1 (\(\ FALSE))));
+
+def DIV     = ((Y (\(\(\(\((((LT 2) 1)((PAIR 3) 2))(((4(SUCC 3))((SUB 2) 1)) 1))))))) c0);
+def IDIV    = (\(\(CAR ((DIV 2) 1))));
+def MOD     = (\(\(CDR ((DIV 2) 1))));
+
+def TEST    = (Y (\(\(((IFTHENELSE
+                           ((EQ 1) c11))
+                           TRUE)
+                           ((AND (NOT (ISZERO ((MOD c11)1)))) (2 (SUCC 1)))
+                        ))));
+
+def ISPRIME = (\((\(((IFTHENELSE
+                     ((LT 2) c2))
+                     FALSE)
+                     (((IFTHENELSE ((EQ 2) c2)) TRUE) (1 c2))
+                   )
+                 )
+                 (Y (\(\(((IFTHENELSE
+                           ((EQ 1)3))
+                           TRUE)
+                           ((AND (NOT (ISZERO ((MOD 3)1)))) (2 (SUCC 1)))
+                        ))))
+                )
+              );
+show ISPRIME;
+
+run (ISPRIME c1);
+run (ISPRIME c2);
+run (ISPRIME c3);
+run (ISPRIME c4);
+run (ISPRIME c5);
+run (ISPRIME c6);
+run (ISPRIME c7);
+run (ISPRIME c8);
+run (ISPRIME c9);
+run (ISPRIME c10);
+run (ISPRIME c11);

@@ -1,0 +1,10 @@
+name:       Lambda
+version:    0.0.1
+build-type: Simple
+
+executable Lambda
+    main-is:        Main.hs
+    hs-source-dirs: src
+    build-depends:  base, 
+                    parsec, 
+                    containers
