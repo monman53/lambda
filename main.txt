@@ -35,11 +35,11 @@ def DIV     = ((Y (\(\(\(\((((LT 2) 1)((PAIR 3) 2))(((4(SUCC 3))((SUB 2) 1)) 1))
 def IDIV    = (\(\(CAR ((DIV 2) 1))));
 def MOD     = (\(\(CDR ((DIV 2) 1))));
 
-def TEST    = (Y (\(\(((IFTHENELSE
-                           ((EQ 1) c11))
-                           TRUE)
-                           ((AND (NOT (ISZERO ((MOD c11)1)))) (2 (SUCC 1)))
-                        ))));
+#def TEST    = (Y (\(\(((IFTHENELSE
+#                           ((EQ 1) c11))
+#                           TRUE)
+#                           ((AND (NOT (ISZERO ((MOD c11)1)))) (2 (SUCC 1)))
+#                        ))));
 
 def ISPRIME = (\((\(((IFTHENELSE
                      ((LT 2) c2))
@@ -54,16 +54,17 @@ def ISPRIME = (\((\(((IFTHENELSE
                         ))))
                 )
               );
+
 show ISPRIME;
 
-run (ISPRIME c1);
-run (ISPRIME c2);
-run (ISPRIME c3);
-run (ISPRIME c4);
-run (ISPRIME c5);
-run (ISPRIME c6);
-run (ISPRIME c7);
-run (ISPRIME c8);
-run (ISPRIME c9);
-run (ISPRIME c10);
-run (ISPRIME c11);
+#run (ISPRIME c1);
+#run (ISPRIME c2);
+#run (ISPRIME c3);
+#run (ISPRIME c4);
+#run (ISPRIME c5);
+#run (ISPRIME c6);
+#run (ISPRIME c7);
+#run (ISPRIME c8);
+#run (ISPRIME c9);
+#run (ISPRIME c10);
+#run (ISPRIME c11);

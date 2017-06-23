@@ -10,6 +10,6 @@ instance Show Term where
     show (Church n)                 = "[c" ++ show n ++  "]"
 
 
-data Line = Def String Term | Run Term | Show Term deriving (Show)
+data Line = Def String Term | Run Term | Show Term | Print String | Comment deriving (Show)
 
 type Script = [Line]

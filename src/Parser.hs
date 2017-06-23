@@ -45,6 +45,7 @@ pDef = do
     spaces
     char '='
     t <- pTerm
+    char ';'
     return (Def name t)
 
 pRun = do
@@ -52,6 +53,7 @@ pRun = do
     space
     spaces
     t <- pTerm
+    char ';'
     return (Run t)
 
 pShow = do
@@ -59,12 +61,28 @@ pShow = do
     space
     spaces
     t <- pTerm
+    char ';'
     return (Show t)
+
+pPrint = do
+    string "print"
+    space
+    spaces
+    s <- many $ noneOf ";\n"
+    -- spaces
+    char ';'
+    return (Print s)
+
+pComment = do
+    char '#'
+    many $ noneOf "\n"
+    -- endOfLine
+    newline
+    return Comment
     
 pLine = do
     spaces
-    l <- (pDef <|> pRun <|> pShow)
-    char ';'
+    l <- (pDef <|> pRun <|> pShow <|> pPrint <|> pComment)
     spaces
     return l
 

@@ -77,4 +77,9 @@ eval ((op:ops), table) = do
                                                 let t' = replace t table
                                                 putStrLn $ show t'
                                                 eval (ops, table)
+                                Print s     -> do
+                                                putStrLn s
+                                                eval (ops, table)
+                                Comment     -> do 
+                                                eval (ops, table)
 
