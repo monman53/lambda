@@ -3,6 +3,7 @@ def S       = (\(\(\((3 1)(2 1)))));
 def I       = (\ 1);
 def Y       = (\((\(2(1 1)))(\(2(1 1)))));
 
+
 def SUCC    = (\(\(\(2 ((3 2) 1)))));
 def PLUS    = (\(\((2 SUCC) 1)));
 def MULT    = (\(\(\(3 (2 1)))));
@@ -35,12 +36,6 @@ def DIV     = ((Y (\(\(\(\((((LT 2) 1)((PAIR 3) 2))(((4(SUCC 3))((SUB 2) 1)) 1))
 def IDIV    = (\(\(CAR ((DIV 2) 1))));
 def MOD     = (\(\(CDR ((DIV 2) 1))));
 
-#def TEST    = (Y (\(\(((IFTHENELSE
-#                           ((EQ 1) c11))
-#                           TRUE)
-#                           ((AND (NOT (ISZERO ((MOD c11)1)))) (2 (SUCC 1)))
-#                        ))));
-
 def ISPRIME = (\((\(((IFTHENELSE
                      ((LT 2) c2))
                      FALSE)
@@ -55,7 +50,21 @@ def ISPRIME = (\((\(((IFTHENELSE
                 )
               );
 
-show ISPRIME;
+show c0;
+show c1;
+show c2;
+show c3;
+show c4;
+
+show TRUE;
+show FALSE;
+
+
+#def TEST    = (Y (\(\(((IFTHENELSE
+#                           ((EQ 1) c11))
+#                           TRUE)
+#                           ((AND (NOT (ISZERO ((MOD c11)1)))) (2 (SUCC 1)))
+#                        ))));
 
 #run (ISPRIME c1);
 #run (ISPRIME c2);

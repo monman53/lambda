@@ -5,6 +5,35 @@ import Data.Map
 import Parser
 import Type
 
+
+-- main
+
+main = do
+        args    <- getArgs
+        let filename = head args
+        handle  <- openFile filename ReadMode
+        contents    <- hGetContents handle 
+        let results = parseSource contents
+        case results of
+            Left e      -> do 
+                            putStrLn "Syntax Error"
+                            return ()
+            Right ops   -> do
+                            eval (ops, empty)
+                            return ()
+        hClose handle
+        return ()
+
+
+-- functions
+
+church :: Integer -> Term
+church n
+    | n < 0     = church 0
+    | otherwise = Abs (Abs (rec n))
+    where rec 0 = Var 1
+          rec n = App (Var 2) (rec $ n - 1)
+
 betaReduction :: Term -> Term
 betaReduction (App (Abs t1) t2) = betaReduction $ substitution t1 t2
 betaReduction (App t1 t2)       = case betaReduction t1 of t1'@(Abs _)    -> betaReduction $ App t1' t2
@@ -26,26 +55,6 @@ addFreeVariable t d = rec t 0
           rec (Abs t1) depth    = Abs (rec t1 $ depth + 1)  
           rec (App t1 t2) depth = App (rec t1 depth) (rec t2 depth)
 
-
-
-lMULT   = Abs (Abs (Abs (App (Var 3) (App (Var 2) (Var 1)))))
-
-main = do
-        args    <- getArgs
-        let filename = head args
-        handle  <- openFile filename ReadMode
-        contents    <- hGetContents handle 
-        let results = parseSource contents
-        case results of
-            Left e      -> do 
-                            putStrLn "Syntax Error"
-                            return ()
-            Right ops   -> do
-                            eval (ops, empty)
-                            return ()
-        hClose handle
-        return ()
-
 type Table = Map String Term
 
 replace :: Term -> Table -> Term
@@ -56,18 +65,16 @@ replace t table = case t of
                     Abs t       -> Abs (replace t table)
                     t           -> t 
 
-church :: Integer -> Term
-church n
-    | n < 0     = church 0
-    | otherwise = Abs (Abs (rec n))
-    where rec 0 = Var 1
-          rec n = App (Var 2) (rec $ n - 1)
-
 eval ([], _)           = return ()
 eval ((op:ops), table) = do
                             case op of
                                 Def name t  -> do
+                                                putStrLn $ "[definition: " ++ name ++ "]"
+                                                putStrLn $ show t 
                                                 let t' = replace t table
+                                                putStrLn $ "[raw]"
+                                                putStrLn $ show t'
+                                                putStrLn ""
                                                 eval (ops, insert name t' table)
                                 Run t       -> do
                                                 let t' = replace t table

@@ -83,6 +83,7 @@ pComment = do
 pLine = do
     spaces
     l <- (pDef <|> pRun <|> pShow <|> pPrint <|> pComment)
+    -- l <- (pDef <|> pRun <|> pPrint <|> pComment)
     spaces
     return l
 
